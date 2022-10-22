@@ -8,7 +8,7 @@ function ProductCard(props) { //props.product is the product we are selling
             <Card.Body>
                 <Card.Title>{product.title}</Card.Title>
                 <Card.Text>{product.price}</Card.Text>
-                <Button variant="primary"> Add To Cart</Button>
+                <Button variant="primary"> Add To</Button>
             </Card.Body>
         </Card>
     )
