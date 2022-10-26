@@ -9,11 +9,11 @@ function NavbarComponent() {
 
     return (
         <>
-            <Navbar expand="sm">
+            <Navbar bg="dark" variant="dark" expand="sm">
                 <Navbar.Brand href="/"> E-Commerce </Navbar.Brand>
                 <Navbar.Toggle />
                 <Navbar.Collapse className="justify-content-end">
-                    <Button onClick={handleShow}> Cart 0 Items</Button>
+                    <Button variant="dark" onClick={handleShow}> Cart 0 Items</Button>
                 </Navbar.Collapse>
             </Navbar>
             <Modal show={show} onHide={handleClose}>
