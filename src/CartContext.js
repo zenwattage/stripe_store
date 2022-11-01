@@ -1,5 +1,7 @@
-import { createContext, useState } from 'react';
-import { productsArray, getProductData } from './productsStore';
+
+import { createContext, useState } from "react";
+import { productsArray, getProductData } from "./productsStore";
+
 
 export const CartContext = createContext({
     items: [],
@@ -7,29 +9,28 @@ export const CartContext = createContext({
     addOneToCart: () => { },
     removeOneFromCart: () => { },
     deleteFromCart: () => { },
-    getTotalCost: () => { },
+    getTotalCost: () => { }
 });
 
-
 export function CartProvider({ children }) {
-    //make state specific to the cart
     const [cartProducts, setCartProducts] = useState([]);
 
-    // [{ id:1, quantity:2 }, { id:2, quantity:1 }]
+    // [ { id: 1 , quantity: 3 }, { id: 2, quantity: 1 } ]
 
     function getProductQuantity(id) {
-
         const quantity = cartProducts.find(product => product.id === id)?.quantity;
 
         if (quantity === undefined) {
             return 0;
         }
+
+        return quantity;
     }
 
     function addOneToCart(id) {
         const quantity = getProductQuantity(id);
 
-        if (quantity === 0) { //product is not in cart
+        if (quantity === 0) { // product is not in cart
             setCartProducts(
                 [
                     ...cartProducts,
@@ -39,46 +40,44 @@ export function CartProvider({ children }) {
                     }
                 ]
             )
-
-        } else {
+        } else { // product is in cart
+            // [ { id: 1 , quantity: 3 }, { id: 2, quantity: 1 } ]    add to product id of 2
             setCartProducts(
                 cartProducts.map(
                     product =>
-                        product.id === id //if condition
-                            ? {
-                                ...product, quantity: product.quantity + 1 //if statement is false
-                            } : product //if statement is true
-                )
-
-            )       //product is in cart
-        }
-    }
-
-    function removeOneFromCart(id) {
-        const quantity = getProductQuantity(id);
-        if (quantity == 1) {
-            deleteFromCart(id)
-        } else {
-            setCartProducts(
-                cartProducts.map(
-                    product =>
-                        product.id === id //if condition
-                            ? {
-                                ...product, quantity: product.quantity + 1 //if statement is false
-                            } : product //if statement is true
+                        product.id === id                                // if condition
+                            ? { ...product, quantity: product.quantity + 1 } // if statement is true
+                            : product                                        // if statement is false
                 )
             )
         }
     }
 
+    function removeOneFromCart(id) {
+        const quantity = getProductQuantity(id);
+
+        if (quantity == 1) {
+            deleteFromCart(id);
+        } else {
+            setCartProducts(
+                cartProducts.map(
+                    product =>
+                        product.id === id                                // if condition
+                            ? { ...product, quantity: product.quantity - 1 } // if statement is true
+                            : product                                        // if statement is false
+                )
+            )
+        }
+    }
 
     function deleteFromCart(id) {
+        // [] if an object meets a condition, add the object to array
+        // [product1, product2, product3]
+        // [product1, product3]
         setCartProducts(
-            //[] if an ojbect meets condition, add the object to the array
-            //[product1, product2, product3]
             cartProducts =>
                 cartProducts.filter(currentProduct => {
-                    return currentProduct.id !== id;
+                    return currentProduct.id != id;
                 })
         )
     }
@@ -88,16 +87,12 @@ export function CartProvider({ children }) {
         cartProducts.map((cartItem) => {
             const productData = getProductData(cartItem.id);
             totalCost += (productData.price * cartItem.quantity);
-        })
-
+        });
         return totalCost;
-
     }
 
-
-
     const contextValue = {
-        items: [],
+        items: cartProducts,
         getProductQuantity,
         addOneToCart,
         removeOneFromCart,
@@ -112,11 +107,10 @@ export function CartProvider({ children }) {
     )
 }
 
-
 export default CartProvider;
-//CODE DOWN HERE
 
 
-// Context (car, addToCart, removeCart)
-// Provide -> gives your React app access to all things in your context
+// CODE DOWN HERE
 
+// Context (cart, addToCart, removeCart)
+// Provider -> gives your React app access to all the things in your context
