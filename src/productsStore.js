@@ -1,28 +1,21 @@
+//sticker = price_1M75cWKdZRZlhpwvWnVVrorF
+//T-shirt = price_1M75dkKdZRZlhpwveDWkiELb
+//Shaker Bottle = price_1M75eQKdZRZlhpwvDoIvY6lC
 const productsArray = [
     {
-        id: 1,
-        title: "Coffee",
+        id: "price_1M75cWKdZRZlhpwvWnVVrorF",
+        title: "Sticker",
         price: 4.99
     },
     {
-        id: 2,
-        title: "Tea",
-        price: 3.99
+        id: "price_1M75dkKdZRZlhpwveDWkiELb",
+        title: "T-Shirt",
+        price: 25.99
     },
     {
-        id: 3,
-        title: "Camera",
-        price: 499.99
-    },
-    {
-        id: 4,
-        title: "Luke",
-        price: 19.99
-    },
-    {
-        id: 5,
-        title: "Roslyn",
-        price: 19.99
+        id: "price_1M75eQKdZRZlhpwvDoIvY6lC",
+        title: "Shaker Bottle",
+        price: 9.99
     }
 ]
 
